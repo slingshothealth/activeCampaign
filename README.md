@@ -41,14 +41,23 @@ response = {'subscriber_id': XXX, 'sendlast_should': 0, 'sendlast_did': 0, 'resu
     lastmessage[123]	Whether or not to set "send the last broadcast campaign." Examples: 1 = yes, 0 = no.
 ***
 
-### Update Contact:
+### Edit Contact:
+data = {
+    'email': 'hey@email.com',
+    'id': id,
+    'first_name': 'Name',
+    'last_name': 'Henry',
+    'overwrite': 0,
+}
+ac.contacts.edit(data)
+
+### Sync Contact (User Id not needed)
 data = {
     'email': 'hey@email.com',
     'first_name': 'Name',
     'last_name': 'Henry',
 }
-ac.contacts.edit(data)
-  This is set to not overwrite all list fields by default.
+ac.contacts.sync(data)
 
 ### Delete Contact:
 ac.contacts.delete(id)

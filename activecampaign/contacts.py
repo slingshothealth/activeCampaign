@@ -31,6 +31,9 @@ class Contacts(object):
         additional_data = [('overwrite', 0),]
         return self.client._post("contact_edit", data, additional_data)
 
+    def sync(self, data):
+        return self.client._post("contact_sync", data, additional_data)
+
     def delete(self, id):
         additional_data = [('id', id),]
         return self.client._get('contact_delete', additional_data)
