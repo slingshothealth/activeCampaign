@@ -3,6 +3,9 @@ class Deals(object):
     def __init__(self, client):
         self.client = client
 
+    def stage_list(self):
+        return self.client._get('deal_stage_list')
+
     '''
         Available Fields to Create a Deal
         title*          Title of the new deal. Example: 'Deal Title'
@@ -15,12 +18,13 @@ class Deals(object):
         organization    Name of the organization of the contact for the new deal. Example: 'Acme Corp'
     '''
 
-    def add(self, title, value, pipeline, contact_id):
+    def add(self, title, value, pipeline, stage, contact_id):
         additional_data = [
             ('title', title),
             ('value', value),
             ('currency', 'usd'),
             ('pipeline', pipeline),
+            ('stage', stage),
             ('contactid', contact_id),
         ]
         return self.client._post('deal_add', additional_data)
@@ -34,10 +38,10 @@ class Deals(object):
         status          Status of the deal. Options: '0' (open), '1' (won), '2' (lost)
     '''
 
-    def edit(self, id, pipeline):
+    def edit(self, id, stage):
         additional_data = [
             ('id', id),
-            ('pipeline', pipeline),
+            ('stage', stage),
         ]
         return self.client._post('deal_edit', additional_data)
 
