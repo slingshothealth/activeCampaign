@@ -38,10 +38,11 @@ class Deals(object):
         status          Status of the deal. Options: '0' (open), '1' (won), '2' (lost)
     '''
 
-    def edit(self, id, stage):
+    def edit(self, id, stage, status):
         additional_data = [
             ('id', id),
             ('stage', stage),
+            ('status', status),
         ]
         return self.client._post('deal_edit', additional_data)
 
