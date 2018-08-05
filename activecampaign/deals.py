@@ -3,8 +3,17 @@ class Deals(object):
     def __init__(self, client):
         self.client = client
 
-    def stage_list(self):
+    def get_stage_list(self):
         return self.client._get('deal_stage_list')
+
+    def get_stage_id(self, stage):
+
+        stage_list = self.get_stage_list()
+
+        for key, val in stage_list.items():
+            if type(val) is dict and val['title'] == stage:
+                return val['id']
+
 
     '''
         Available Fields to Create a Deal
@@ -19,12 +28,15 @@ class Deals(object):
     '''
 
     def add(self, title, value, pipeline, stage, contact_id):
+
+        stage_id = self.get_stage_id(stage)
+
         additional_data = [
             ('title', title),
             ('value', value),
             ('currency', 'usd'),
             ('pipeline', pipeline),
-            ('stage', stage),
+            ('stage', stage_id),
             ('contactid', contact_id),
         ]
         return self.client._post('deal_add', additional_data)
@@ -39,9 +51,12 @@ class Deals(object):
     '''
 
     def edit(self, id, stage, status):
+
+        stage_id = self.get_stage_id(stage)
+
         additional_data = [
             ('id', id),
-            ('stage', stage),
+            ('stage', stage_id),
             ('status', status),
         ]
         return self.client._post('deal_edit', additional_data)
