@@ -44,7 +44,7 @@ class Contacts(object):
 
     def add_note(self, list_id, email, note):
         try:
-            contact = lookup_by_email(email)
+            contact = self.lookup_by_email(email)
             contact_id = contact['id']
         except:
             print("Error Finding Contact in Active Campaign")
