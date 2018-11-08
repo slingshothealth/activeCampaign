@@ -50,15 +50,19 @@ class Deals(object):
         status          Status of the deal. Options: '0' (open), '1' (won), '2' (lost)
     '''
 
-    def edit(self, id, stage, status):
+    def edit(self, id, stage, status, value = None):
 
         stage_id = self.get_stage_id(stage)
 
         additional_data = [
             ('id', id),
             ('stage', stage_id),
-            ('status', status),
+            ('status', status)
         ]
+
+        if value:
+            additional_data.append('value', value)
+
         return self.client._post('deal_edit', additional_data)
 
     '''
