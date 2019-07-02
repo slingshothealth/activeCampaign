@@ -74,3 +74,8 @@ class Deals(object):
             ('dealid', deal_id),
         ]
         return self.client._post('deal_note_add', additional_data)
+
+
+    def get(self, id):
+        additional_data = [('id', id),]
+        return self.client._get('deal_get', additional_data)
